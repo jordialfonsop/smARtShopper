@@ -37,13 +37,14 @@ public class TaskManager : MonoBehaviour
         public string taskName;
     }
 
+    [System.Serializable]
     public class Order
     {
         public string description;
         public string orderID;
     }
 
-    public List<Order> orderList = new List<Order>();
+    [SerializeField] public List<Order> orderList = new List<Order>();
 
     private string ordersText = "";
 
@@ -64,6 +65,15 @@ public class TaskManager : MonoBehaviour
                 ordersText = webRequest.downloadHandler.text;
             }
         }
+
+        JSONNode ordersParse = JSONNode.Parse(ordersText);
+        foreach (JSONNode node in ordersParse)
+        {
+            Order tmp = new Order();
+            tmp.description = node["description"];
+            tmp.orderID = node["orderID"];
+            orderList.Add(tmp);
+        }
     }
 
     public void GetTaskInformation()
@@ -83,15 +93,11 @@ public class TaskManager : MonoBehaviour
                 break;
             case "Task 4":
                 orderList.Clear();
+                    
+                StartCoroutine(GetRequest("https://smart-shopper-api.azurewebsites.net/api/getOrders?"));
+
                 
-                JSONNode ordersParse = JSONNode.Parse(ordersText);
-                foreach (JSONNode node in ordersParse)
-                {
-                    Order tmp = new Order();
-                    tmp.description = node["description"];
-                    tmp.orderID = node["orderID"];
-                    orderList.Add(tmp);
-                }
+
                 break;
             default: break;
         }

@@ -53,13 +53,15 @@ public class TaskUIRender : MonoBehaviour
                 break;
             case "task 2":
 
+                transform.GetChild(0).gameObject.GetComponent<TMP_Text>().text = "";
                 transform.GetChild(0).gameObject.GetComponent<RectTransform>().localRotation = new Quaternion(0, 180, 0, 0);
 
                 useTTSManager.StartSynthesis(selectedObject.orderID);
 
                 break;
             case "task 3":
-                
+
+                transform.GetChild(0).gameObject.GetComponent<TMP_Text>().text = "";
                 transform.GetChild(0).gameObject.GetComponent<RectTransform>().localRotation = new Quaternion(0, 180, 0, 0);
 
                 pathfinder.target = selectedObject.position;

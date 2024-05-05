@@ -26,6 +26,12 @@ public class TaskUIRender : MonoBehaviour
         transform.position = originalTransform.position;
         transform.rotation = originalTransform.rotation;
 
+        for (int i = transform.childCount - 1; i > 1; i--)
+        {
+            Destroy(transform.GetChild(i).gameObject);
+
+        }
+
         switch (task)
         {
             case "task 1":
@@ -36,6 +42,7 @@ public class TaskUIRender : MonoBehaviour
                     GameObject objectUI1 = Instantiate(orderObjectElementPrefab);
                     objectUI1.transform.parent = transform;
                     objectUI1.GetComponent<RectTransform>().localPosition = Vector3.zero;
+                    objectUI1.GetComponent<RectTransform>().localRotation = new Quaternion(0,0,0,0);
 
                     objectUI1.transform.GetChild(0).gameObject.GetComponent<TMP_Text>().text = "Object Name: " + orderObject.objectName;
                     objectUI1.transform.GetChild(1).gameObject.GetComponent<TMP_Text>().text = "EAN: " + orderObject.ean;
@@ -67,6 +74,7 @@ public class TaskUIRender : MonoBehaviour
                     GameObject objectUI4 = Instantiate(orderElementPrefab);
                     objectUI4.transform.parent = transform;
                     objectUI4.GetComponent<RectTransform>().localPosition = Vector3.zero;
+                    objectUI4.GetComponent<RectTransform>().localRotation = new Quaternion(0, 0, 0, 0);
 
                     objectUI4.transform.GetChild(0).gameObject.GetComponent<TMP_Text>().text = "OrderID: " + order.orderID;
                     objectUI4.transform.GetChild(1).gameObject.GetComponent<TMP_Text>().text = "Description: " + order.description;

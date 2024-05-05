@@ -1,5 +1,6 @@
 using System.Collections;
 using System.IO;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -8,11 +9,16 @@ public class UploadAudio : MonoBehaviour
     // URL of your API
     [SerializeField] private string apiUrl = "https://smart-shopper-api.azurewebsites.net/api/askAgent?";
 
-    private string path = "C:/Users/FA507/Documents/GitHub/smARtShopper/Assets/wavFile.wav";
+    public string path;
+
+    [SerializeField] TMP_Text uitext;
+    [SerializeField] public TaskManager taskManager;
 
     void Start()
     {
-        APISendRequest(path);
+        path = Application.persistentDataPath + "/request.wav";
+        //path = "C:/Users/FA507/Documents/GitHub/smARtShopper/Assets/wavFile.wav";
+        //APISendRequest(path);
     }
 
     public void APISendRequest(string audioFilePath){
@@ -42,10 +48,14 @@ public class UploadAudio : MonoBehaviour
             if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
             {
                 Debug.LogError("Error: " + request.error);
+                uitext.text = "Error: " + request.error;
             }
             else
             {
                 Debug.Log("Response: " + request.downloadHandler.text);
+                //uitext.text = "Response: " + request.downloadHandler.text;
+                //Debug.Log(uitext.text);
+                taskManager.GetTaskInformation(request.downloadHandler.text);
             }
         }
     }

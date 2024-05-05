@@ -1,0 +1,12 @@
+[
+  {
+    "objectName": "ball",
+    "position": [ 1, 1, 1 ],
+    "stock": 3
+  },
+  {
+    "objectName": "book",
+    "position": [ 0, 0, 0 ],
+    "stock": 12
+  }
+]
